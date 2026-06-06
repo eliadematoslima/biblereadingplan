@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bible-app-v1';
+const CACHE_NAME = 'bible-app-v3'; // Mudamos para v3 para o celular atualizar
 const ASSETS = [
   '',
   'index.html',
@@ -8,7 +8,8 @@ const ASSETS = [
   'data/traditional-plan.json',
   'data/chronological-plan.json',
   'manifest.json',
-  'icon.svg'
+  'icon.svg',
+  'icons/icon.png' // <-- Caminho correto da sua nova imagem PNG
 ];
 
 // Instala o Service Worker e guarda os arquivos no cache
