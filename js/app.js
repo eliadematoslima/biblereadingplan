@@ -34,7 +34,7 @@ async function loadReadingPlan() {
       ? "traditional-plan.json"
       : "chronological-plan.json";
 
-  const response = await fetch(`../data/${fileName}`);
+  const response = await fetch(`data/${fileName}`);
   const readingPlan = await response.json();
 
   updateToggleButton();
@@ -203,3 +203,12 @@ resetButton.addEventListener("click", () => {
     loadReadingPlan();
   }
 );
+
+// Registrar o Service Worker para suporte offline e instalação PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('Service Worker registrado com sucesso!'))
+      .catch((err) => console.error('Erro ao registrar Service Worker:', err));
+  });
+}
