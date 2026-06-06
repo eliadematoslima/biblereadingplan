@@ -2,7 +2,7 @@
   "name": "Plano de Leitura Bíblica",
   "short_name": "Leitura Bíblica",
   "description": "Acompanhamento offline de leitura bíblica anual.",
-  "start_url": "/index.html",
+  "start_url": "/biblereadingplan/index.html",
   "display": "standalone",
   "background_color": "#f5f5f5",
   "theme_color": "#2c3e50",
