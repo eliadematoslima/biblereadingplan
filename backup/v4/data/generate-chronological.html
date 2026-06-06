@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>
+    Gerador Cronológico
+  </title>
+
+</head>
+
+<body>
+
+<pre id="output"></pre>
+
+<script>
+
+function formatDate(dayNumber) {
+
+  const date = new Date(2026, 0);
+
+  date.setDate(dayNumber);
+
+  const day =
+    String(date.getDate())
+      .padStart(2, "0");
+
+  const month =
+    String(date.getMonth() + 1)
+      .padStart(2, "0");
+
+  return `${day}/${month}`;
+
+}
+
+const chronologicalReadings = [
+
+  // CRIAÇÃO E HUMANIDADE INICIAL
+
+  ["Gênesis 1-3"],
+  ["Gênesis 4-7"],
+  ["Gênesis 8-11"],
+
+  // JÓ (provavelmente período patriarcal)
+
+  ["Jó 1-4"],
+  ["Jó 5-8"],
+  ["Jó 9-12"],
+  ["Jó 13-16"],
+  ["Jó 17-20"],
+  ["Jó 21-24"],
+  ["Jó 25-28"],
+  ["Jó 29-31"],
+  ["Jó 32-34"],
+  ["Jó 35-37"],
+  ["Jó 38-39"],
+  ["Jó 40-42"],
+
+  // ABRAÃO
+
+  ["Gênesis 12-14"],
+  ["Gênesis 15-17"],
+  ["Gênesis 18-19"],
+  ["Gênesis 20-22"],
+  ["Gênesis 23-24"],
+
+  // ISAQUE E JACÓ
+
+  ["Gênesis 25-26"],
+  ["Gênesis 27-28"],
+  ["Gênesis 29-30"],
+  ["Gênesis 31-32"],
+  ["Gênesis 33-35"],
+
+  // JOSÉ
+
+  ["Gênesis 36-37"],
+  ["Gênesis 38-40"],
+  ["Gênesis 41-42"],
+  ["Gênesis 43-45"],
+  ["Gênesis 46-47"],
+  ["Gênesis 48-50"],
+
+  // ESCRAVIDÃO NO EGITO
+
+  ["Êxodo 1-4"],
+  ["Êxodo 5-7"],
+  ["Êxodo 8-10"],
+  ["Êxodo 11-13"],
+  ["Êxodo 14-15"],
+
+  // DESERTO
+
+  ["Êxodo 16-18"],
+  ["Êxodo 19-21"],
+  ["Êxodo 22-24"],
+  ["Êxodo 25-27"],
+  ["Êxodo 28-29"],
+  ["Êxodo 30-32"],
+  ["Êxodo 33-35"],
+  ["Êxodo 36-38"],
+  ["Êxodo 39-40"],
+
+  // LEI
+
+  ["Levítico 1-4"],
+  ["Levítico 5-7"],
+  ["Levítico 8-10"],
+  ["Levítico 11-13"],
+  ["Levítico 14-15"],
+  ["Levítico 16-18"],
+  ["Levítico 19-21"],
+  ["Levítico 22-23"],
+  ["Levítico 24-25"],
+  ["Levítico 26-27"],
+
+  // NÚMEROS
+
+  ["Números 1-3"],
+  ["Números 4-6"],
+  ["Números 7"],
+  ["Números 8-10"],
+  ["Números 11-13"],
+  ["Números 14-15"],
+  ["Números 16-18"],
+  ["Números 19-21"],
+  ["Números 22-24"],
+  ["Números 25-27"],
+  ["Números 28-30"],
+  ["Números 31-32"],
+  ["Números 33-36"],
+
+  // DEUTERONÔMIO
+
+  ["Deuteronômio 1-3"],
+  ["Deuteronômio 4-6"],
+  ["Deuteronômio 7-9"],
+  ["Deuteronômio 10-12"],
+  ["Deuteronômio 13-16"],
+  ["Deuteronômio 17-20"],
+  ["Deuteronômio 21-23"],
+  ["Deuteronômio 24-27"],
+  ["Deuteronômio 28-29"],
+  ["Deuteronômio 30-31"],
+  ["Deuteronômio 32-34"],
+
+// JOSUÉ — CONQUISTA DE CANAÃ
+
+["Josué 1-4"],
+["Josué 5-8"],
+["Josué 9-11"],
+["Josué 12-15"],
+["Josué 16-18"],
+["Josué 19-21"],
+["Josué 22-24"],
+
+// JUÍZES — CICLO TRIBAL
+
+["Juízes 1-3"],
+["Juízes 4-5"],
+["Juízes 6-7"],
+["Juízes 8-9"],
+["Juízes 10-12"],
+["Juízes 13-15"],
+["Juízes 16-18"],
+
+// RUTE — período dos juízes
+
+["Rute 1-4"],
+
+// CONTINUAÇÃO DOS JUÍZES
+
+["Juízes 19-21"],
+
+// SAMUEL
+
+["1 Samuel 1-3"],
+["1 Samuel 4-7"],
+["1 Samuel 8-10"],
+
+// SAUL REI
+
+["1 Samuel 11-13"],
+["1 Samuel 14-15"],
+
+// DAVI E GOLIAS
+
+["1 Samuel 16-17"],
+
+// PRIMEIROS SALMOS
+
+["Salmos 59"],
+["1 Samuel 18-20"],
+
+// FUGA DE DAVI
+
+["Salmos 34; Salmos 56"],
+["1 Samuel 21-24"],
+["Salmos 57; Salmos 142"],
+["1 Samuel 25-27"],
+
+// DAVI PERSEGUIDO
+
+["Salmos 52; Salmos 63"],
+["1 Samuel 28-31"],
+
+// DAVI REI
+
+["2 Samuel 1-4"],
+["1 Crônicas 1-2"],
+["Salmos 18"],
+["2 Samuel 5-7"],
+["1 Crônicas 3-5"],
+
+// ARCA E ADORAÇÃO
+
+["1 Crônicas 13-16"],
+["Salmos 96; Salmos 105"],
+
+// CONQUISTAS
+
+["2 Samuel 8-10"],
+["1 Crônicas 17-19"],
+
+// QUEDA DE DAVI
+
+["2 Samuel 11-12"],
+["Salmos 51"],
+
+// CONTINUAÇÃO DO REINADO
+
+["2 Samuel 13-15"],
+["Salmos 3"],
+["2 Samuel 16-18"],
+["Salmos 7; Salmos 27"],
+
+// RESTAURAÇÃO
+
+["2 Samuel 19-21"],
+
+// SALMOS DE DAVI
+
+["Salmos 32; Salmos 38"],
+["Salmos 40; Salmos 41"],
+["Salmos 55"],
+["Salmos 61; Salmos 62"],
+["Salmos 64; Salmos 65"],
+
+// FINAL DO REINADO
+
+["2 Samuel 22-24"],
+["1 Crônicas 20-22"],
+["Salmos 30"],
+
+// ORGANIZAÇÃO DO TEMPLO
+
+["1 Crônicas 23-26"],
+["Salmos 15; Salmos 24"],
+
+// ÚLTIMOS DIAS DE DAVI
+
+["1 Crônicas 27-29"],
+
+// SALOMÃO
+
+["1 Reis 1-2"],
+["Salmos 72"],
+["1 Reis 3-4"],
+["2 Crônicas 1"],
+["Provérbios 1-3"],
+["Provérbios 4-6"],
+["Provérbios 7-9"],
+["1 Reis 5-6"],
+["2 Crônicas 2-3"],
+
+// TEMPLO
+
+["1 Reis 7"],
+["2 Crônicas 4"],
+["1 Reis 8"],
+["2 Crônicas 5-7"],
+
+// SABEDORIA
+
+["Eclesiastes 1-4"],
+["Eclesiastes 5-8"],
+["Eclesiastes 9-12"],
+
+// CANTARES
+
+["Cantares 1-4"],
+["Cantares 5-8"],
+
+// PROVÉRBIOS
+
+["Provérbios 10-12"],
+["Provérbios 13-15"],
+["Provérbios 16-18"],
+["Provérbios 19-21"],
+["Provérbios 22-24"],
+["Provérbios 25-27"],
+["Provérbios 28-31"],
+
+// FINAL DE SALOMÃO
+
+["1 Reis 9-11"],
+["2 Crônicas 8-9"],
+
+// DIVISÃO DO REINO
+
+["1 Reis 12-13"],
+["2 Crônicas 10-12"],
+
+// PROFETAS INICIAIS
+
+["Joel 1-3"],
+
+// REIS MAUS E PROFETAS
+
+["1 Reis 14-15"],
+["2 Crônicas 13-16"],
+
+// ELIAS
+
+["1 Reis 16"],
+["1 Reis 17-18"],
+["1 Reis 19-20"],
+["1 Reis 21-22"],
+
+// ACABE E JEOSAFÁ
+
+["2 Crônicas 17-20"],
+
+// ELISEU
+
+["2 Reis 1-3"],
+["2 Reis 4-5"],
+["2 Reis 6-7"],
+["2 Reis 8"],
+
+// JONAS
+
+["Jonas 1-4"],
+
+// ISRAEL E JUDÁ
+
+["2 Reis 9-10"],
+["2 Crônicas 21-23"],
+
+// PROFETAS MENORES
+
+["Amós 1-3"],
+["Amós 4-6"],
+["Amós 7-9"],
+
+["Oséias 1-4"],
+["Oséias 5-9"],
+["Oséias 10-14"],
+
+// CONTINUAÇÃO DOS REINOS
+
+["2 Reis 11-12"],
+["2 Crônicas 24"],
+
+["2 Reis 13-14"],
+["2 Crônicas 25"],
+
+// ISAÍAS E REINOS
+
+["Isaías 1-4"],
+["Isaías 5-8"],
+["Isaías 9-12"],
+
+// REINADOS
+
+["2 Reis 15"],
+["2 Crônicas 26"],
+
+// JONATÃO E ACAZ
+
+["2 Reis 16"],
+["2 Crônicas 27-28"],
+
+// MIQUÉIAS
+
+["Miquéias 1-4"],
+["Miquéias 5-7"],
+
+// ISAÍAS CONTINUA
+
+["Isaías 13-17"],
+["Isaías 18-22"],
+["Isaías 23-27"],
+
+// EZEQUIAS
+
+["2 Reis 17"],
+["2 Reis 18-20"],
+["2 Crônicas 29-32"],
+
+// QUEDA DE ISRAEL
+
+["Oséias 1-7"],
+["Oséias 8-14"],
+
+// ISAÍAS PROFETIZA
+
+["Isaías 28-31"],
+["Isaías 32-35"],
+["Isaías 36-39"],
+
+// MANASSÉS E AMOM
+
+["2 Reis 21"],
+["2 Crônicas 33"],
+
+// NAUM
+
+["Naum 1-3"],
+
+// JOSIAS
+
+["2 Reis 22-23"],
+["2 Crônicas 34-35"],
+
+// SOFONIAS
+
+["Sofonias 1-3"],
+
+// HABACUQUE
+
+["Habacuque 1-3"],
+
+// JEREMIAS
+
+["Jeremias 1-3"],
+["Jeremias 4-6"],
+["Jeremias 7-9"],
+["Jeremias 10-13"],
+["Jeremias 14-17"],
+["Jeremias 18-22"],
+["Jeremias 23-25"],
+
+// QUEDA DE JUDÁ
+
+["2 Reis 24-25"],
+["2 Crônicas 36"],
+
+// LAMENTAÇÕES
+
+["Lamentações 1-2"],
+["Lamentações 3-5"],
+
+// EZEQUIEL
+
+["Ezequiel 1-4"],
+["Ezequiel 5-8"],
+["Ezequiel 9-12"],
+["Ezequiel 13-16"],
+["Ezequiel 17-20"],
+["Ezequiel 21-24"],
+
+// DANIEL
+
+["Daniel 1-2"],
+["Daniel 3-4"],
+["Daniel 5-6"],
+
+// PROFECIAS NO EXÍLIO
+
+["Ezequiel 25-28"],
+["Ezequiel 29-32"],
+["Ezequiel 33-36"],
+["Ezequiel 37-39"],
+["Ezequiel 40-42"],
+["Ezequiel 43-45"],
+["Ezequiel 46-48"],
+
+// DANIEL CONTINUA
+
+["Daniel 7-8"],
+["Daniel 9-10"],
+["Daniel 11-12"],
+
+// RETORNO DO EXÍLIO
+
+["Esdras 1-3"],
+["Esdras 4-6"],
+
+// AGEU
+
+["Ageu 1-2"],
+
+// ZACARIAS
+
+["Zacarias 1-4"],
+["Zacarias 5-8"],
+["Zacarias 9-14"],
+
+// ESTER
+
+["Ester 1-3"],
+["Ester 4-7"],
+["Ester 8-10"],
+
+// ESDRAS CONTINUA
+
+["Esdras 7-10"],
+
+// NEEMIAS
+
+["Neemias 1-3"],
+["Neemias 4-6"],
+["Neemias 7-9"],
+["Neemias 10-13"],
+
+// MALAQUIAS
+
+["Malaquias 1-4"],
+
+// NASCIMENTO DE JESUS
+
+["Lucas 1"],
+["Mateus 1"],
+["Lucas 2"],
+["Mateus 2"],
+
+// INÍCIO DO MINISTÉRIO
+
+["João 1"],
+["Mateus 3"],
+["Lucas 3"],
+["Mateus 4"],
+
+// PRIMEIROS MILAGRES
+
+["João 2-4"],
+
+// GALILEIA
+
+["Mateus 5-7"],
+
+// SERMÃO DO MONTE
+
+["Mateus 8-9"],
+["Marcos 1-2"],
+["Lucas 4-5"],
+
+// ENSINOS E MILAGRES
+
+["Mateus 10-12"],
+["Marcos 3"],
+["Lucas 6"],
+
+// PARÁBOLAS
+
+["Mateus 13"],
+["Marcos 4"],
+["Lucas 8"],
+
+// MILAGRES
+
+["Mateus 14"],
+["Marcos 5-6"],
+["João 6"],
+
+// CONFISSÃO DE PEDRO
+
+["Mateus 15-16"],
+["Marcos 7-8"],
+
+// TRANSFIGURAÇÃO
+
+["Mateus 17"],
+["Marcos 9"],
+["Lucas 9"],
+
+// ÚLTIMO MINISTÉRIO NA GALILEIA
+
+["João 7-8"],
+
+// ENSINOS FINAIS
+
+["Lucas 10-13"],
+["João 9-10"],
+
+// CAMINHO PARA JERUSALÉM
+
+["Lucas 14-18"],
+
+// RESSURREIÇÃO DE LÁZARO
+
+["João 11"],
+
+// SEMANA FINAL
+
+["Mateus 21-23"],
+["Marcos 11-12"],
+["Lucas 19-20"],
+
+// SERMÃO ESCATOLÓGICO
+
+["Mateus 24-25"],
+["Marcos 13"],
+["Lucas 21"],
+
+// ÚLTIMA CEIA
+
+["Mateus 26"],
+["Marcos 14"],
+["Lucas 22"],
+["João 13-17"],
+
+// CRUCIFICAÇÃO
+
+["Mateus 27"],
+["Marcos 15"],
+["Lucas 23"],
+["João 18-19"],
+
+// RESSURREIÇÃO
+
+["Mateus 28"],
+["Marcos 16"],
+["Lucas 24"],
+["João 20-21"],
+
+// IGREJA PRIMITIVA
+
+["Atos 1-2"],
+["Atos 3-5"],
+["Atos 6-7"],
+
+// EXPANSÃO DA IGREJA
+
+["Atos 8-9"],
+["Atos 10-12"],
+
+// PRIMEIRA VIAGEM MISSIONÁRIA
+
+["Atos 13-14"],
+
+// GÁLATAS
+
+["Gálatas 1-3"],
+["Gálatas 4-6"],
+
+// CONCÍLIO DE JERUSALÉM
+
+["Atos 15"],
+
+// SEGUNDA VIAGEM
+
+["Atos 16-18"],
+
+// TESSALONICENSES
+
+["1 Tessalonicenses 1-5"],
+["2 Tessalonicenses 1-3"],
+
+// CORINTO
+
+["1 Coríntios 1-4"],
+["1 Coríntios 5-8"],
+["1 Coríntios 9-11"],
+["1 Coríntios 12-14"],
+["1 Coríntios 15-16"],
+
+// TERCEIRA VIAGEM
+
+["Atos 19-20"],
+
+// 2 CORÍNTIOS
+
+["2 Coríntios 1-4"],
+["2 Coríntios 5-9"],
+["2 Coríntios 10-13"],
+
+// ROMANOS
+
+["Romanos 1-4"],
+["Romanos 5-8"],
+["Romanos 9-12"],
+["Romanos 13-16"],
+
+// PRISÃO DE PAULO
+
+["Atos 21-23"],
+["Atos 24-26"],
+["Atos 27-28"],
+
+// CARTAS DA PRISÃO
+
+["Efésios 1-3"],
+["Efésios 4-6"],
+
+["Filipenses 1-4"],
+
+["Colossenses 1-4"],
+
+["Filemom"],
+
+// HEBREUS
+
+["Hebreus 1-4"],
+["Hebreus 5-7"],
+["Hebreus 8-10"],
+["Hebreus 11-13"],
+
+// TIMÓTEO E TITO
+
+["1 Timóteo 1-3"],
+["1 Timóteo 4-6"],
+
+["Tito 1-3"],
+
+["2 Timóteo 1-4"],
+
+// CARTAS GERAIS
+
+["Tiago 1-5"],
+
+["1 Pedro 1-3"],
+["1 Pedro 4-5"],
+
+["2 Pedro 1-3"],
+
+["1 João 1-3"],
+["1 João 4-5"],
+
+["2 João"],
+["3 João"],
+
+["Judas"],
+
+// APOCALIPSE
+
+["Apocalipse 1-3"],
+["Apocalipse 4-6"],
+["Apocalipse 7-9"],
+["Apocalipse 10-12"],
+["Apocalipse 13-15"],
+["Apocalipse 16-18"],
+["Apocalipse 19-22"]
+
+];
+
+const plan = [];
+
+chronologicalReadings
+  .slice(0, 365)
+  .forEach(
+  (readings, index) => {
+
+    const day = index + 1;
+
+    plan.push({
+
+      day,
+
+      date: formatDate(day),
+
+      readings
+
+    });
+
+  }
+);
+
+document.getElementById(
+  "output"
+).textContent =
+  JSON.stringify(plan, null, 2);
+
+</script>
+
+</body>
+</html>

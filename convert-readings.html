@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>
+    Conversor de Leituras
+  </title>
+
+</head>
+
+<body>
+
+<pre id="output"></pre>
+
+<script>
+
+async function loadPlan() {
+
+  const response =
+    await fetch(
+      "./data/traditional-plan.json"
+    );
+
+  const plan =
+    await response.json();
+
+  const converted =
+    plan.map(item => {
+
+      const newReadings = [];
+
+      item.readings.forEach(reading => {
+
+        const parts =
+          reading.split(" ");
+
+        const book =
+          parts.slice(0, -1)
+            .join(" ");
+
+        const chapterPart =
+          parts[parts.length - 1];
+
+        // intervalo
+
+        if (chapterPart.includes("-")) {
+
+          const [start, end] =
+            chapterPart
+              .split("-")
+              .map(Number);
+
+          for (
+            let i = start;
+            i <= end;
+            i++
+          ) {
+
+            newReadings.push(
+              `${book} ${i}`
+            );
+
+          }
+
+        } else {
+
+          newReadings.push(
+            `${book} ${chapterPart}`
+          );
+
+        }
+
+      });
+
+      return {
+
+        ...item,
+
+        readings: newReadings
+
+      };
+
+    });
+
+  document.getElementById(
+    "output"
+  ).textContent =
+    JSON.stringify(
+      converted,
+      null,
+      2
+    );
+
+}
+
+loadPlan();
+
+</script>
+
+</body>
+</html>
