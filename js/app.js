@@ -178,14 +178,14 @@ function renderList(readingPlan) {
     listContainer.appendChild(monthSection);
   }
 
-  // Procura pelo primeiro dia que AINDA NÃO foi concluído
-  const firstUncompletedDay = document.querySelector('.day-card:not(.completed)'); // ou .day-item:not(.completed) dependendo da sua classe CSS
+  // CORRIGIDO: Procura pelo primeiro .day-item que AINDA NÃO foi concluído
+  const firstUncompletedDay = document.querySelector('.day-item:not(.completed)');
 
   if (firstUncompletedDay) {
     // Faz a tela rolar suavemente até o dia atual de leitura
     setTimeout(() => {
       firstUncompletedDay.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 100); // Um pequeno delay garante que o DOM já renderizou tudo
+    }, 300); // 300ms garante que o layout e as fontes terminaram de renderizar no mobile
   }
 }
 
@@ -214,10 +214,10 @@ resetButton.addEventListener("click", () => {
   }
 );
 
-// Registrar o Service Worker para suporte offline e instalação PWA
+// CORRIGIDO: Registra o Service Worker com caminho relativo (sem a barra inicial)
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('./sw.js')
       .then(() => console.log('Service Worker registrado com sucesso!'))
       .catch((err) => console.error('Erro ao registrar Service Worker:', err));
   });
