@@ -177,6 +177,16 @@ function renderList(readingPlan) {
 
     listContainer.appendChild(monthSection);
   }
+
+  // Procura pelo primeiro dia que AINDA NÃO foi concluído
+  const firstUncompletedDay = document.querySelector('.day-card:not(.completed)'); // ou .day-item:not(.completed) dependendo da sua classe CSS
+
+  if (firstUncompletedDay) {
+    // Faz a tela rolar suavemente até o dia atual de leitura
+    setTimeout(() => {
+      firstUncompletedDay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100); // Um pequeno delay garante que o DOM já renderizou tudo
+  }
 }
 
 // ==============================

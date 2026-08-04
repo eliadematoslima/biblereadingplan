@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bible-app-v3'; // Mudamos para v3 para o celular atualizar
+const CACHE_NAME = 'bible-app-v4'; // Mudamos para v3 para o celular atualizar
 const ASSETS = [
   '',
   'index.html',
